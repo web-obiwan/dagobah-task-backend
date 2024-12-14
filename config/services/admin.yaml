@@ -1,0 +1,13 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  sonata.admin.user.user:
+    class: App\Admin\UserAdmin
+    tags:
+      - name: sonata.admin
+        model_class: 'App\Entity\User'
+        manager_type: orm
+        group: "group.users"
+        label: "admin.user.title"

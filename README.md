@@ -40,7 +40,12 @@ Our mission is to make ticket management in GitLab faster and more intuitive by 
    php bin/console doctrine:migrations:migrate
    ```
 
-5. Start the development server:
+5. Set up jwt private/public key:
+   ```bash
+   php bin/console lexik:jwt:generate-keypair
+   ```
+
+6. Start the development server:
    ```bash
    symfony serve
    ```

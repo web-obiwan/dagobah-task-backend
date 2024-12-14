@@ -1,3 +1,6 @@
+###> PHPSTORM ###
+.idea/*
+###< PHPSTORM ###
 
 ###> symfony/framework-bundle ###
 /.env.local
@@ -27,3 +30,6 @@ phpstan.neon
 ###> lexik/jwt-authentication-bundle ###
 /config/jwt/*.pem
 ###< lexik/jwt-authentication-bundle ###
+
+
+
