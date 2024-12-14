@@ -4,26 +4,48 @@ security:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
-        users_in_memory: { memory: null }
+        app_user_provider:
+            id: App\Security\UserProvider
+
     firewalls:
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-        main:
+        login:
+            pattern: ^/api/login
+            stateless: true
+            json_login:
+                check_path: /api/login_check
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+
+        api:
+            pattern: ^/api
+            stateless: true
+            jwt: ~
+
+        admin:
             lazy: true
-            provider: users_in_memory
+            pattern: /admin(.*)
+            provider: app_user_provider
+            context: user
+            form_login:
+                login_path: sonata_user_admin_security_login
+                check_path: sonata_user_admin_security_check
+                default_target_path: sonata_admin_dashboard
+            logout:
+                path: sonata_user_admin_security_logout
+                target: sonata_user_admin_security_login
+            remember_me:
+                secret: '%env(APP_SECRET)%'
+                lifetime: 2629746
+                path: /admin
 
-            # activate different ways to authenticate
-            # https://symfony.com/doc/current/security.html#the-firewall
 
-            # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
-
-    # Easy way to control access for large sections of your site
-    # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/api/docs, roles: PUBLIC_ACCESS }
+        - { path: ^/api/login, roles: PUBLIC_ACCESS }
+        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/admin/login, role: PUBLIC_ACCESS }
+        - { path: ^/admin/logout, role: PUBLIC_ACCESS }
+        - { path: ^/admin/, role: [ ROLE_ADMIN, ROLE_SUPER_ADMIN ] }
 
 when@test:
     security:

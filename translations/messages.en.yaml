@@ -1,0 +1,12 @@
+admin:
+  id: 'id'
+  #USER
+  user:
+    title: 'User'
+    username: 'Username'
+    email: 'Email'
+    enabled: 'Enabled ?'
+    roles: 'Roles'
+    password: 'Password'
+
+

@@ -6,3 +6,10 @@ parameters:
         - public/
         - src/
         - tests/
+
+    ignoreErrors:
+        - identifier: argument.templateType
+        - identifier: missingType.generics
+
+        #doctrine
+        - '#Call to an undefined method Doctrine\\Persistence\\Mapping\\ClassMetadata<object>::setIdGeneratorType\(\)#'

@@ -1,0 +1,11 @@
+admin:
+  id: 'id'
+  #USER
+  user:
+    title: 'Utilisateur'
+    username: 'Username'
+    email: 'Email'
+    enabled: 'Actif ?'
+    roles: 'Rôles'
+    password: 'Mot de passe'
+

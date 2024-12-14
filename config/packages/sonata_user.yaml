@@ -1,0 +1,3 @@
+sonata_user:
+  class:
+    user: App\Entity\User
