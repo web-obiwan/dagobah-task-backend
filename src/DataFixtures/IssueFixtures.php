@@ -21,11 +21,11 @@ class IssueFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies(): array
     {
         return [
-          LabelFixtures::class,
-          PriorityFixtures::class,
-          ProjectFixtures::class,
-          SprintFixtures::class,
-          UserFixtures::class,
+            LabelFixtures::class,
+            PriorityFixtures::class,
+            ProjectFixtures::class,
+            SprintFixtures::class,
+            UserFixtures::class,
         ];
     }
 

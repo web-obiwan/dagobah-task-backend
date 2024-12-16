@@ -15,7 +15,7 @@ class LabelFixtures extends Fixture
      * @var array<string>
      */
     private array $entities = [
-         'Label'
+        'Label'
     ];
 
 

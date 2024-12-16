@@ -33,22 +33,10 @@ tools:
       external_code_coverage: false
 
 build:
-    image: default-bionic
     environment:
-        php: 
-          version: 8.3
-        mongodb: false
-        redis: false
-        mysql: false
-        postgresql: false
-        variables:
-            APP_ENV: test
-    dependencies:
-        override:
-          - composer install -n --ignore-platform-reqs
-    tests:
-        override: true
-    nodes: 
+        php:
+            version: '8.3.16'
+    nodes:
         analysis:
             tests:
                 override:

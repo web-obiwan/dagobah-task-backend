@@ -15,7 +15,7 @@ class ProjectFixtures extends Fixture
      * @var array<string>
      */
     private array $entities = [
-         'Project'
+        'Project'
     ];
 
 
