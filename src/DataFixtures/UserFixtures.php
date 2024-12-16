@@ -15,7 +15,7 @@ class UserFixtures extends Fixture
      * @var array<string>
      */
     private array $entities = [
-         'User'
+        'User'
     ];
 
 

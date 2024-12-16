@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\DataFixtures;
 
 use App\Entity\Priority;
-use App\Entity\Status;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -16,7 +15,7 @@ class PriorityFixtures extends Fixture
      * @var array<string>
      */
     private array $entities = [
-         'Priority'
+        'Priority'
     ];
 
 
