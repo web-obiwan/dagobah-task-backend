@@ -31,6 +31,13 @@ class UserFixtures extends Fixture
             'plainPassword' => 'kenobi',
             'roles' => ['ROLE_SUPER_ADMIN'],
         ],
+        [
+            'id' => 2,
+            'email' => 'luke.skywalker@local.fr',
+            'username' => 'luke',
+            'plainPassword' => 'skywalker',
+            'roles' => ['ROLE_SUPER_ADMIN'],
+        ],
     ];
 
     /**
@@ -67,6 +74,7 @@ class UserFixtures extends Fixture
             $user->setPlainPassword($row['plainPassword']);
             $user->setRoles($row['roles']);
             $manager->persist($user);
+            $this->addReference('user' . $user->getId(), $user);
         }
     }
 }
