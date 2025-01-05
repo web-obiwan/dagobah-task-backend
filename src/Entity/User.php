@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
@@ -16,6 +21,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Table(name:'user')]
 #[DoctrineAssert\UniqueEntity(["email"])]
 #[DoctrineAssert\UniqueEntity(["username"])]
+#[ApiResource(
+    operations: [
+        new GetCollection(),
+        new Get()
+    ],
+    normalizationContext: ['groups' => ['user:read']]
+)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use TimestampableEntity;
@@ -51,6 +63,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank(groups: ['user:create'])]
     #[Groups(['user:create'])]
     protected ?string $plainPassword = null;
+
+    /**
+     * @var Collection<int, Issue>
+     */
+    #[ORM\OneToMany(targetEntity: Issue::class, mappedBy: 'owner')]
+    private Collection $ownerIssues;
+
+    /**
+     * @var Collection<int, Issue>
+     */
+    #[ORM\OneToMany(targetEntity: Issue::class, mappedBy: 'reviewer')]
+    private Collection $reviewerIssues;
+
+    public function __construct()
+    {
+        $this->ownerIssues = new ArrayCollection();
+        $this->reviewerIssues = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
