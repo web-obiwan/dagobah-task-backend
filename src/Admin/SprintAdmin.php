@@ -8,13 +8,13 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollectionInterface;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class UserAdmin extends AbstractAdmin
+class SprintAdmin extends AbstractAdmin
 {
-    protected $baseRouteName = 'sonata_admin_user';
+    protected $baseRouteName = 'sonata_admin_sprint';
 
     /**
      * @param RouteCollectionInterface $collection
@@ -32,17 +32,17 @@ class UserAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $form): void
     {
         $form
-            ->add('username', TextType::class, [
-                'label' => 'admin.username',
+            ->add('name', TextType::class, [
+                'label' => 'admin.name',
                 'required' => true,
             ])
-            ->add('email', EmailType::class, [
-                'label' => 'admin.email',
+            ->add('begunAt', DateType::class, [
+                'label' => 'admin.begunAt',
                 'required' => true,
             ])
-            ->add('enabled', CheckboxType::class, [
-                'required' => false,
-                'label' => 'admin.enabled'
+            ->add('endedAt', DateType::class, [
+                'label' => 'admin.endedAt',
+                'required' => true,
             ])
         ;
     }
@@ -53,9 +53,7 @@ class UserAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $filter): void
     {
         $filter
-            ->add('username', null, ['label' => 'admin.username'])
-            ->add('email', null, ['label' => 'admin.email'])
-            ->add('enabled', null, ['label' => 'admin.enabled'])
+            ->add('name', null, ['label' => 'admin.name'])
         ;
     }
 
@@ -66,10 +64,9 @@ class UserAdmin extends AbstractAdmin
     {
         $list
             ->addIdentifier('id', null, ['label' => 'admin.id'])
-            ->add('username', null, ['label' => 'admin.username'])
-            ->add('email', null, ['label' => 'admin.email'])
-            ->add('roles', null, ['label' => 'admin.roles'])
-            ->add('enabled', null, ['editable' => true, 'label' => 'admin.enabled'])
+            ->add('name', null, ['label' => 'admin.name'])
+            ->add('begunAt', null, ['label' => 'admin.begunAt'])
+            ->add('endedAt', null, ['label' => 'admin.endedAt'])
             ->add('_action', 'actions', [
                 'actions' => [
                     'show' => [],
@@ -86,11 +83,8 @@ class UserAdmin extends AbstractAdmin
     {
         $show
             ->add('id', null, ['label' => 'admin.id'])
-            ->add('username', null, ['label' => 'admin.username'])
-            ->add('email', null, ['label' => 'admin.email'])
-            ->add('roles', null, ['label' => 'admin.roles'])
-            ->add('enabled', null, ['label' => 'admin.enabled'])
-            ->add('password', null, ['label' => 'admin.password'])
+            ->add('begunAt', null, ['label' => 'admin.begunAt'])
+            ->add('endedAt', null, ['label' => 'admin.endedAt'])
         ;
     }
 }

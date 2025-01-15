@@ -1,2 +1,5 @@
 group:
-    users: 'Users'
+  users: 'Users'
+  referentials: 'Referentials'
+  projects: 'Projects'
+  issues: 'Issues'

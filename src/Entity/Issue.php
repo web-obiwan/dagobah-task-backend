@@ -10,6 +10,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use App\Repository\IssueRepository;
+use App\ValueObject\IssueStatus;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -85,9 +86,8 @@ class Issue
     protected ?User $reviewer = null;
 
     #[Groups(['issue:status', 'issue:create', 'issue:update'])]
-    #[ORM\ManyToOne(targetEntity: Status::class, fetch: 'EAGER')]
-    #[ORM\JoinColumn(nullable:false, onDelete:'RESTRICT')]
-    protected Status $status;
+    #[ORM\Column(length: 20, nullable: false)]
+    protected string $status = IssueStatus::BACKLOG;
 
     #[Groups(['issue:priority', 'issue:create', 'issue:update'])]
     #[ORM\ManyToOne(targetEntity: Priority::class, fetch: 'EAGER')]
@@ -200,14 +200,15 @@ class Issue
         $this->reviewer = $reviewer;
     }
 
-    public function getStatus(): Status
+    public function getStatus(): string
     {
         return $this->status;
     }
 
-    public function setStatus(Status $status): void
+    public function setStatus(string $status): void
     {
-        $this->status = $status;
+        $value = new IssueStatus($status);
+        $this->status = $value->getValue();
     }
 
     public function getPriority(): Priority
@@ -248,5 +249,10 @@ class Issue
     public function setIsArchived(bool $isArchived): void
     {
         $this->isArchived = $isArchived;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }

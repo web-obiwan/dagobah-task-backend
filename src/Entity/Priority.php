@@ -63,4 +63,9 @@ class Priority
     {
         $this->sort = $sort;
     }
+
+    public function __toString(): string
+    {
+        return $this->name;
+    }
 }

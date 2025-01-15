@@ -3,6 +3,12 @@ services:
     autowire: true
     autoconfigure: true
 
+  admin.block.service.stats:
+    class: App\Block\Service\StatsBlockService
+    public: true
+    tags:
+      - { name: "sonata.block" }
+
   sonata.admin.user.user:
     class: App\Admin\UserAdmin
     tags:
@@ -10,4 +16,50 @@ services:
         model_class: 'App\Entity\User'
         manager_type: orm
         group: "group.users"
-        label: "admin.user.title"
+        label: "admin.user"
+        show_in_dashboard: false
+
+  sonata.admin.project:
+    class: App\Admin\ProjectAdmin
+    tags:
+      - name: sonata.admin
+        model_class: 'App\Entity\Project'
+        manager_type: orm
+        group: "group.projects"
+        label: "admin.project"
+
+  sonata.admin.priority:
+    class: App\Admin\PriorityAdmin
+    tags:
+      - name: sonata.admin
+        model_class: 'App\Entity\Priority'
+        manager_type: orm
+        group: "group.referentials"
+        label: "admin.priority"
+
+  sonata.admin.labels:
+    class: App\Admin\LabelAdmin
+    tags:
+      - name: sonata.admin
+        model_class: 'App\Entity\Label'
+        manager_type: orm
+        group: "group.referentials"
+        label: "admin.label"
+
+  sonata.admin.sprint:
+    class: App\Admin\SprintAdmin
+    tags:
+      - name: sonata.admin
+        model_class: 'App\Entity\Sprint'
+        manager_type: orm
+        group: "group.issues"
+        label: "admin.sprint"
+
+  sonata.admin.issue:
+    class: App\Admin\IssueAdmin
+    tags:
+      - name: sonata.admin
+        model_class: 'App\Entity\Issue'
+        manager_type: orm
+        group: "group.issues"
+        label: "admin.issue"
