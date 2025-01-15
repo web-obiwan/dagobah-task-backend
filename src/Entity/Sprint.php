@@ -81,4 +81,9 @@ class Sprint
     {
         $this->endedAt = $endedAt;
     }
+
+    public function __toString(): string
+    {
+        return $this->name;
+    }
 }

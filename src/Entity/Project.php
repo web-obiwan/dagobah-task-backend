@@ -99,4 +99,9 @@ class Project
     {
         return $this->issues;
     }
+
+    public function __toString(): string
+    {
+        return $this->name;
+    }
 }

@@ -1,0 +1,23 @@
+{% extends '@SonataAdmin/standard_layout.html.twig' %}
+{% block content %}
+    <h2>Issues</h2>
+    <div class="row">
+        {{ sonata_block_render({ 'type': 'admin.block.service.stats' }, {
+            'entity' : 'App\\Entity\\Issue',
+            'repository_method' : 'countStatusBacklog',
+            'title' : 'BACKLOG',
+            'url' : '/admin/app/issue/list?filter%5Bstatus%5D%5Bvalue%5D=BACKLOG',
+            'css_class' : 'bg-gray-active',
+            'icon' : 'fa fa-database'
+        }) }}
+        {{ sonata_block_render({ 'type': 'admin.block.service.stats' }, {
+            'entity' : 'App\\Entity\\Issue',
+            'repository_method' : 'countStatusInProgress',
+            'title' : 'IN PROGRESS',
+            'url' : '/admin/app/issue/list?filter%5Bstatus%5D%5Bvalue%5D=IN_PROGRESS',
+            'css_class' : 'bg-gray-active',
+            'icon' : 'fa fa-wrench'
+        }) }}
+    </div>
+
+{% endblock %}

@@ -8,6 +8,9 @@ sonata_admin:
         role_admin: ROLE_ADMIN
         role_super_admin: ROLE_SUPER_ADMIN
     persist_filters: true
+    templates:
+        dashboard: 'Admin/home.html.twig'
+
 sonata_block:
     blocks:
         sonata.admin.block.admin_list:

@@ -8,8 +8,8 @@ use App\Entity\Issue;
 use App\Entity\Label;
 use App\Entity\Priority;
 use App\Entity\Project;
-use App\Entity\Status;
 use App\Entity\User;
+use App\ValueObject\IssueStatus;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -24,7 +24,6 @@ class IssueFixtures extends Fixture implements DependentFixtureInterface
           PriorityFixtures::class,
           ProjectFixtures::class,
           SprintFixtures::class,
-          StatusFixtures::class,
           UserFixtures::class,
         ];
     }
@@ -48,7 +47,7 @@ class IssueFixtures extends Fixture implements DependentFixtureInterface
             'reviewer' => 2,
             'project' => 1,
             'sprint' => 1,
-            'status' => 1,
+            'status' => IssueStatus::BACKLOG,
             'priority' => 1,
             'labels' => [2]
         ],
@@ -59,7 +58,7 @@ class IssueFixtures extends Fixture implements DependentFixtureInterface
             'reviewer' => 2,
             'project' => 1,
             'sprint' => 1,
-            'status' => 1,
+            'status' => IssueStatus::BACKLOG,
             'priority' => 2,
             'labels' => [1]
         ],
@@ -87,7 +86,7 @@ class IssueFixtures extends Fixture implements DependentFixtureInterface
             $issue->setName($row['name']);
             $issue->setOwner($this->getReference('user' . $row['owner'], User::class));
             $issue->setReviewer($this->getReference('user' . $row['reviewer'], User::class));
-            $issue->setStatus($this->getReference('status' . $row['status'], Status::class));
+            $issue->setStatus($row['status']);
             $issue->setPriority($this->getReference('priority' . $row['priority'], Priority::class));
             $issue->setProject($this->getReference('project' . $row['project'], Project::class));
             foreach ($row['labels'] as $label) {
