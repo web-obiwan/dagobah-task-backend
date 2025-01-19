@@ -4,10 +4,16 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -17,9 +23,22 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(
     operations: [
         new GetCollection(),
-        new Get()
+        new Get(),
+        new Post(
+            denormalizationContext: ['groups' => ['sprint:create']]
+        ),
+        new Put(
+            denormalizationContext: ['groups' => ['sprint:update']]
+        ),
     ],
     normalizationContext: ['groups' => ['sprint:read']]
+)]
+#[ApiFilter(
+    OrderFilter::class,
+    properties: [
+        'createdAt' => 'ASC',
+        'beginAt' => 'ASC',
+    ]
 )]
 class Sprint
 {
@@ -29,17 +48,28 @@ class Sprint
     #[ORM\Id, ORM\Column, ORM\GeneratedValue]
     protected ?int $id = null;
 
-    #[Groups(['sprint:read'])]
+    #[Groups(['sprint:read', 'sprint:create', 'sprint:update'])]
     #[ORM\Column(length: 100, unique: true, nullable: false)]
     protected string $name = '';
 
-    #[Groups(['sprint:read'])]
+    #[Groups(['sprint:read', 'sprint:create', 'sprint:update'])]
     #[ORM\Column(type: 'date', nullable: false)]
     private DateTime $begunAt;
 
-    #[Groups(['sprint:read'])]
+    #[Groups(['sprint:read', 'sprint:create', 'sprint:update'])]
     #[ORM\Column(type: 'date', nullable: false)]
     private DateTime $endedAt;
+
+    /**
+     * @var Collection<int, Issue>
+     */
+    #[ORM\OneToMany(targetEntity: Issue::class, mappedBy: 'project')]
+    private Collection $issues;
+
+    public function __construct()
+    {
+        $this->issues = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -80,6 +110,11 @@ class Sprint
     public function setEndedAt(DateTime $endedAt): void
     {
         $this->endedAt = $endedAt;
+    }
+
+    public function getIssues(): Collection
+    {
+        return $this->issues;
     }
 
     public function __toString(): string

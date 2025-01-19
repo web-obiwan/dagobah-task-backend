@@ -7,6 +7,8 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -15,7 +17,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(
     operations: [
         new GetCollection(),
-        new Get()
+        new Get(),
+        new Post(
+            denormalizationContext: ['groups' => ['label:create']]
+        ),
+        new Put(
+            denormalizationContext: ['groups' => ['label:update']]
+        ),
     ],
     normalizationContext: ['groups' => ['label:read']]
 )]
@@ -25,11 +33,11 @@ class Label
     #[ORM\Id, ORM\Column, ORM\GeneratedValue]
     protected ?int $id = null;
 
-    #[Groups(['label:read'])]
+    #[Groups(['label:read', 'label:create', 'label:update'])]
     #[ORM\Column(length: 100, nullable: false)]
     protected string $name = '';
 
-    #[Groups(['label:read'])]
+    #[Groups(['label:read', 'label:create', 'label:update'])]
     #[ORM\Column(length: 7, nullable: false)]
     private string $color = '#000000';
 

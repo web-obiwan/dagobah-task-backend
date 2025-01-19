@@ -91,7 +91,7 @@ class IssueAdmin extends AbstractAdmin
         $filter
             ->add('name', null, ['label' => 'admin.name'])
             ->add('status', ChoiceFilter::class, [
-                'label' => 'label.status',
+                'label' => 'admin.status',
                 'field_type' => ChoiceType::class,
                 'field_options' => [
                     'choices' => IssueStatus::getStatusChoices(),

@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
+use ApiPlatform\Serializer\Filter\GroupFilter;
 use App\Repository\IssueRepository;
 use App\ValueObject\IssueStatus;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -19,26 +23,65 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: IssueRepository::class)]
 #[ORM\Table(name:'issue')]
+#[ORM\Index(name: 'idx_issue_name', columns: ['name'])]
+#[ORM\Index(name: 'idx_issue_status', columns: ['status'])]
 #[ApiResource(
     operations: [
         new GetCollection(),
         new Get(),
         new Post(
-            denormalizationContext: ['groups' => ['issue:create']]
+            normalizationContext: ['groups' => ['issue:read', 'issue:labels']],
+            denormalizationContext: ['groups' => ['issue:create']],
         ),
         new Put(
+            normalizationContext: ['groups' => ['issue:read', 'issue:labels']],
             denormalizationContext: ['groups' => ['issue:update']]
         ),
     ],
     normalizationContext: ['groups' => [
         'issue:read',
         'issue:project',
+        'issue:sprint',
         'issue:reporter',
         'issue:owner',
         'issue:reviewer',
         'issue:status',
         'issue:priority',
-        'issue:labels', 'label:read']
+        'issue:labels',
+        'label:read']
+    ]
+)]
+#[ApiFilter(
+    SearchFilter::class,
+    properties: [
+        'id' => 'exact',
+        'project' => 'exact',
+        'sprint' => 'exact',
+        'reference' => 'exact',
+        'reporter' => 'exact',
+        'owner' => 'exact',
+        'reviewer' => 'exact',
+        'status' => 'exact',
+        'priority' => 'exact',
+    ]
+)]
+#[ApiFilter(
+    OrderFilter::class,
+    properties: [
+        'createdAt' => 'ASC',
+        'priority.sort' => 'ASC',
+        'reference' => 'ASC',
+    ]
+)]
+#[ApiFilter(
+    GroupFilter::class,
+    arguments: [
+        'parameterName' => 'groups',
+        'overrideDefaultGroups' => true,
+        'whitelist' => [
+            'issue:read',
+            'issue:labels',
+        ]
     ]
 )]
 class Issue
@@ -57,7 +100,7 @@ class Issue
     #[ORM\Column(length: 50, unique: true, nullable: false)]
     protected string $reference = '';
 
-    #[Groups(['issue:read'])]
+    #[Groups(['issue:read', 'issue:create', 'issue:update'])]
     #[ORM\Column(nullable: true)]
     protected ?int $storyPoint;
 
@@ -69,6 +112,11 @@ class Issue
     #[ORM\ManyToOne(targetEntity: Project::class, fetch: 'EAGER', inversedBy: 'issues')]
     #[ORM\JoinColumn(nullable:false, onDelete:'RESTRICT')]
     protected Project $project;
+
+    #[Groups(['issue:project', 'issue:create', 'issue:update'])]
+    #[ORM\ManyToOne(targetEntity: Sprint::class, fetch: 'EAGER', inversedBy: 'issues')]
+    #[ORM\JoinColumn(nullable:true, onDelete:'RESTRICT')]
+    protected ?Sprint $sprint;
 
     #[Groups(['issue:reporter', 'issue:create', 'issue:update'])]
     #[ORM\ManyToOne(targetEntity: User::class, fetch: 'EAGER')]
@@ -85,7 +133,7 @@ class Issue
     #[ORM\JoinColumn(nullable:true, onDelete:'RESTRICT')]
     protected ?User $reviewer = null;
 
-    #[Groups(['issue:status', 'issue:create', 'issue:update'])]
+    #[Groups(['issue:status', 'issue:update'])]
     #[ORM\Column(length: 20, nullable: false)]
     protected string $status = IssueStatus::BACKLOG;
 
@@ -168,6 +216,16 @@ class Issue
     public function setProject(Project $project): void
     {
         $this->project = $project;
+    }
+
+    public function getSprint(): ?Sprint
+    {
+        return $this->sprint;
+    }
+
+    public function setSprint(?Sprint $sprint): void
+    {
+        $this->sprint = $sprint;
     }
 
     public function getReporter(): ?User
