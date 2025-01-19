@@ -7,8 +7,8 @@
 Our mission is to make ticket management in GitLab faster and more intuitive by eliminating repetitive and time-consuming tasks. Whether you’re a developer, project manager, or team member, Dagobah Task is designed to streamline your workflow.
 
 ##
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/web-obiwan/dagobah-task-backend/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/web-obiwan/dagobah-task-backend/?branch=develop)
-[![Build Status](https://scrutinizer-ci.com/g/web-obiwan/dagobah-task-backend/badges/build.png?b=develop)]()
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/web-obiwan/dagobah-task-backend/badges/quality-score.png?b=dev)](https://scrutinizer-ci.com/g/web-obiwan/dagobah-task-backend/?branch=dev)
+[![Build Status](https://scrutinizer-ci.com/g/web-obiwan/dagobah-task-backend/badges/build.png?b=dev)]()
 
 ## 📖 Installation
 

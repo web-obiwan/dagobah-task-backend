@@ -33,7 +33,7 @@ class IssueFixtures extends Fixture implements DependentFixtureInterface
      * @var array<string>
      */
     private array $entities = [
-         'Issue'
+        'Issue'
     ];
 
 
