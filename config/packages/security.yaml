@@ -46,6 +46,7 @@ security:
         - { path: ^/admin/login, role: PUBLIC_ACCESS }
         - { path: ^/admin/logout, role: PUBLIC_ACCESS }
         - { path: ^/admin/, role: [ ROLE_ADMIN, ROLE_SUPER_ADMIN ] }
+        - { path: ^/audit/, role: [ ROLE_ADMIN, ROLE_SUPER_ADMIN ] }
 
 when@test:
     security:

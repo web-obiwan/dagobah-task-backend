@@ -1,31 +1,47 @@
 doctrine:
     dbal:
-        url: '%env(resolve:DATABASE_URL)%'
-
-        # IMPORTANT: You MUST configure your server version,
-        # either here or in the DATABASE_URL env var (see .env file)
-        #server_version: '16'
-
-        profiling_collect_backtrace: '%kernel.debug%'
-        use_savepoints: true
+        default_connection: default
+        connections:
+            default:
+                driver: pdo_mysql
+                url: '%env(resolve:DATABASE_URL)%'
+                charset: UTF8MB4
+                use_savepoints: true
+                mapping_types:
+                    enum: string
+            audit:
+                driver: pdo_mysql
+                url: '%env(resolve:DATABASE_URL_AUDIT)%'
+                charset: UTF8
+                use_savepoints: true
+                mapping_types:
+                    enum: string
     orm:
         auto_generate_proxy_classes: true
         enable_lazy_ghost_objects: true
-        report_fields_where_declared: true
-        validate_xml_mapping: true
-        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
-        identity_generation_preferences:
-            Doctrine\DBAL\Platforms\PostgreSQLPlatform: identity
-        auto_mapping: true
-        mappings:
-            App:
-                type: attribute
-                is_bundle: false
-                dir: '%kernel.project_dir%/src/Entity'
-                prefix: 'App\Entity'
-                alias: App
-        controller_resolver:
-            auto_mapping: false
+        entity_managers:
+            default:
+                connection: default
+                validate_xml_mapping: true
+                report_fields_where_declared: true
+                naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+                auto_mapping: true
+                mappings:
+                    App:
+                        is_bundle: false
+                        type: attribute
+                        dir: '%kernel.project_dir%/src/Entity'
+                        prefix: 'App\Entity'
+                        alias: App
+
+                dql:
+                    string_functions:
+                        ifnull: DoctrineExtensions\Query\Mysql\IfNull
+                    numeric_functions:
+                        round: DoctrineExtensions\Query\Mysql\Round
+            audit:
+                connection: audit
+                naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
 
 when@test:
     doctrine:

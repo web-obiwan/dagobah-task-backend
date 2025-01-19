@@ -38,6 +38,7 @@ Our mission is to make ticket management in GitLab faster and more intuitive by 
    ```bash
    php bin/console doctrine:database:create
    php bin/console doctrine:migrations:migrate
+   php bin/console audit:schema:update --force
    ```
 
 5. Set up jwt private/public key:

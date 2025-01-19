@@ -1,0 +1,23 @@
+# Full configuration reference available at:
+# https://damienharper.github.io/auditor-docs/docs/auditor-bundle/configuration/reference.html
+dh_auditor:
+    enabled: true
+    providers:
+        doctrine:
+            table_prefix: null
+            table_suffix: '_audit'
+            storage_services:
+                - '@doctrine.orm.audit_entity_manager'
+            auditing_services:
+                - '@doctrine.orm.default_entity_manager'
+            viewer: true
+            ignored_columns:
+                - createdAt
+                - updatedAt
+            entities:
+                App\Entity\User:
+                App\Entity\Project:
+                App\Entity\Sprint:
+                App\Entity\Label:
+                App\Entity\Priority:
+                App\Entity\Issue:
