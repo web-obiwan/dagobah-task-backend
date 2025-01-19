@@ -63,7 +63,7 @@ class Sprint
     /**
      * @var Collection<int, Issue>
      */
-    #[ORM\OneToMany(targetEntity: Issue::class, mappedBy: 'project')]
+    #[ORM\OneToMany(targetEntity: Issue::class, mappedBy: 'sprint')]
     private Collection $issues;
 
     public function __construct()

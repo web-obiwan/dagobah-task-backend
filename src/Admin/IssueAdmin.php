@@ -119,6 +119,9 @@ class IssueAdmin extends AbstractAdmin
                 'actions' => [
                     'show' => [],
                     'edit' => [],
+                    'history' => [
+                        'template' => 'Admin/Entity/Issue/link.history.html.twig'
+                    ],
                 ]
             ])
         ;
