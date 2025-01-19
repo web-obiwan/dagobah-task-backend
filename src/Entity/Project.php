@@ -7,19 +7,27 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
-use VideoGamesRecords\CoreBundle\Entity\Group;
 
 #[ORM\Entity]
 #[ORM\Table(name:'project')]
+#[ORM\Index(name: 'idx_project_name', columns: ['name'])]
 #[ApiResource(
     operations: [
         new GetCollection(),
-        new Get()
+        new Get(),
+        new Post(
+            denormalizationContext: ['groups' => ['project:create']]
+        ),
+        new Put(
+            denormalizationContext: ['groups' => ['project:update']]
+        ),
     ],
     normalizationContext: ['groups' => ['project:read']]
 )]
@@ -31,15 +39,15 @@ class Project
     #[ORM\Id, ORM\Column, ORM\GeneratedValue]
     protected ?int $id = null;
 
-    #[Groups(['project:read'])]
+    #[Groups(['project:read', 'project:create', 'project:update'])]
     #[ORM\Column(length: 100, unique: true, nullable: false)]
     protected string $name = '';
 
-    #[Groups(['issue:read', 'issue:create', 'issue:update'])]
+    #[Groups(['project:read', 'project:create'])]
     #[ORM\Column(length: 100, nullable: false)]
     protected string $prefix = '';
 
-    #[Groups(['project:read'])]
+    #[Groups(['project:read', 'project:create', 'project:update'])]
     #[ORM\Column(length: 2000, nullable: true)]
     protected ?string $description;
 
