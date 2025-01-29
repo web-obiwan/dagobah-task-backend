@@ -113,6 +113,12 @@ class Issue
     #[ORM\JoinColumn(nullable:false, onDelete:'RESTRICT')]
     protected Project $project;
 
+    /**
+     * @var Collection<int, Repository>
+     */
+    #[ORM\ManyToMany(targetEntity: Repository::class)]
+    private Collection $repositories;
+
     #[Groups(['issue:project', 'issue:create', 'issue:update'])]
     #[ORM\ManyToOne(targetEntity: Sprint::class, fetch: 'EAGER', inversedBy: 'issues')]
     #[ORM\JoinColumn(nullable:true, onDelete:'RESTRICT')]
@@ -156,6 +162,7 @@ class Issue
     public function __construct()
     {
         $this->labels = new ArrayCollection();
+        $this->repositories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -216,6 +223,21 @@ class Issue
     public function setProject(Project $project): void
     {
         $this->project = $project;
+    }
+
+    public function getRepositories(): Collection
+    {
+        return $this->repositories;
+    }
+
+    public function addRepository(Repository $repository): void
+    {
+        $this->repositories[] = $repository;
+    }
+
+    public function removeRepository(Repository $repository): void
+    {
+        $this->repositories->removeElement($repository);
     }
 
     public function getSprint(): ?Sprint
@@ -284,7 +306,7 @@ class Issue
         $this->labels[] = $label;
     }
 
-    public function removePlatform(Label $label): void
+    public function removeLabel(Label $label): void
     {
         $this->labels->removeElement($label);
     }
