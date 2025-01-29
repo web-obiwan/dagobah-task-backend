@@ -8,6 +8,7 @@ use App\Entity\Issue;
 use App\Entity\Label;
 use App\Entity\Priority;
 use App\Entity\Project;
+use App\Entity\Repository;
 use App\Entity\Sprint;
 use App\Entity\User;
 use App\ValueObject\IssueStatus;
@@ -26,6 +27,7 @@ class IssueFixtures extends Fixture implements DependentFixtureInterface
             ProjectFixtures::class,
             SprintFixtures::class,
             UserFixtures::class,
+            RepositoryFixtures::class
         ];
     }
 
@@ -47,6 +49,7 @@ class IssueFixtures extends Fixture implements DependentFixtureInterface
             'owner' => 1,
             'reviewer' => 2,
             'project' => 1,
+            'repositories' => [1,2],
             'sprint' => 1,
             'status' => IssueStatus::BACKLOG,
             'priority' => 1,
@@ -58,6 +61,7 @@ class IssueFixtures extends Fixture implements DependentFixtureInterface
             'owner' => 1,
             'reviewer' => 2,
             'project' => 1,
+            'repositories' => [],
             'sprint' => 1,
             'status' => IssueStatus::BACKLOG,
             'priority' => 2,
@@ -94,8 +98,11 @@ class IssueFixtures extends Fixture implements DependentFixtureInterface
             foreach ($row['labels'] as $label) {
                 $issue->addLabel($this->getReference('label' . $label, Label::class));
             }
+            foreach ($row['repositories'] as $repository) {
+                $issue->addRepository($this->getReference('repository' . $repository, Repository::class));
+            }
             $manager->persist($issue);
-            $this->addReference('issue.' . $issue->getId(), $issue);
+            $this->addReference('issue' . $issue->getId(), $issue);
             $manager->flush();
         }
     }

@@ -15,9 +15,9 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class IssueAdmin extends AbstractAdmin
+class RepositoryAdmin extends AbstractAdmin
 {
-    protected $baseRouteName = 'sonata_admin_issue';
+    protected $baseRouteName = 'sonata_admin_repository';
 
     /**
      * @param RouteCollectionInterface $collection
@@ -39,41 +39,13 @@ class IssueAdmin extends AbstractAdmin
                 'label' => 'admin.name',
                 'required' => true,
             ])
+            ->add('gitlabId', null, [
+                'label' => 'admin.gitlabId',
+                'required' => false,
+            ])
             ->add('project', null, [
                 'label' => 'admin.project',
                 'required' => true,
-            ])
-            ->add('owner', null, [
-                'label' => 'admin.owner',
-                'required' => true,
-            ])
-            ->add('reviewer', null, [
-                'label' => 'admin.reviewer',
-                'required' => false,
-            ])
-            ->add('reporter', null, [
-                'label' => 'admin.reporter',
-                'required' => false,
-            ])
-            ->add(
-                'status',
-                ChoiceType::class,
-                [
-                    'label' => 'admin.status',
-                    'choices' => IssueStatus::getStatusChoices(),
-                ]
-            )
-            ->add('priority', null, [
-                'label' => 'admin.priority',
-                'required' => true,
-            ])
-            ->add('is_archived', CheckboxType::class, [
-                'label' => 'admin.isArchived',
-                'required' => false,
-            ])
-            ->add('storyPoint', TextType::class, [
-                'label' => 'admin.storyPoint',
-                'required' => false,
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'admin.description',
@@ -90,14 +62,6 @@ class IssueAdmin extends AbstractAdmin
     {
         $filter
             ->add('name', null, ['label' => 'admin.name'])
-            ->add('status', ChoiceFilter::class, [
-                'label' => 'admin.status',
-                'field_type' => ChoiceType::class,
-                'field_options' => [
-                    'choices' => IssueStatus::getStatusChoices(),
-                    'multiple' => false,
-                ]
-            ])
         ;
     }
 
@@ -109,19 +73,13 @@ class IssueAdmin extends AbstractAdmin
         $list
             ->addIdentifier('id', null, ['label' => 'admin.id'])
             ->add('project', null, ['label' => 'admin.project'])
+            ->add('gitlabId', null, ['label' => 'admin.gitlabId'])
             ->add('name', null, ['label' => 'admin.name'])
-            ->add('owner', null, ['label' => 'admin.owner'])
-            ->add('reviewer', null, ['label' => 'admin.reviewer'])
-            ->add('status', null, ['label' => 'admin.status'])
-            ->add('priority', null, ['label' => 'admin.priority'])
             ->add('createdAt', null, ['label' => 'admin.createdAt'])
             ->add('_action', 'actions', [
                 'actions' => [
                     'show' => [],
                     'edit' => [],
-                    'history' => [
-                        'template' => 'Admin/Entity/Issue/link.history.html.twig'
-                    ],
                 ]
             ])
         ;
@@ -135,12 +93,8 @@ class IssueAdmin extends AbstractAdmin
         $show
             ->add('id', null, ['label' => 'admin.id'])
             ->add('project', null, ['label' => 'admin.project'])
-            ->add('repositories', null, ['label' => 'admin.repositories'])
+            ->add('gitlabId', null, ['label' => 'admin.gitlabId'])
             ->add('name', null, ['label' => 'admin.name'])
-            ->add('owner', null, ['label' => 'admin.owner'])
-            ->add('reviewer', null, ['label' => 'admin.reviewer'])
-            ->add('status', null, ['label' => 'admin.status'])
-            ->add('priority', null, ['label' => 'admin.priority'])
             ->add('description', null, ['label' => 'admin.description'])
             ->add('createdAt', null, ['label' => 'admin.createdAt'])
         ;

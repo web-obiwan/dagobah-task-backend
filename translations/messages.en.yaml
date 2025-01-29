@@ -26,5 +26,7 @@ admin:
   reporter: 'Reporter'
   isArchived: 'Is Archived ?'
   storyPoint: 'Story Point'
-
+  repository: 'Repository'
+  repositories: 'Repositories'
+  gitlabId: 'ID Gitlab'
 

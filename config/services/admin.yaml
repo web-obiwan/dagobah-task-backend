@@ -28,6 +28,15 @@ services:
         group: "group.projects"
         label: "admin.project"
 
+  sonata.admin.repository:
+    class: App\Admin\RepositoryAdmin
+    tags:
+      - name: sonata.admin
+        model_class: 'App\Entity\Repository'
+        manager_type: orm
+        group: "group.projects"
+        label: "admin.repository"
+
   sonata.admin.priority:
     class: App\Admin\PriorityAdmin
     tags:
