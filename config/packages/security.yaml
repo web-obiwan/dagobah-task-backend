@@ -15,11 +15,17 @@ security:
                 check_path: /api/login_check
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
+        refresh:
+            pattern: ^/api/token/refresh
+            stateless: true
+            anonymous: true
 
         api:
             pattern: ^/api
             stateless: true
             jwt: ~
+            refresh_jwt:
+                check_path: /api/token/refresh
 
         admin:
             lazy: true
@@ -42,7 +48,8 @@ security:
     access_control:
         - { path: ^/api/docs, roles: PUBLIC_ACCESS }
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
-        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/token/refresh, roles: PUBLIC_ACCESS }
+        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/admin/login, role: PUBLIC_ACCESS }
         - { path: ^/admin/logout, role: PUBLIC_ACCESS }
         - { path: ^/admin/, role: [ ROLE_ADMIN, ROLE_SUPER_ADMIN ] }
