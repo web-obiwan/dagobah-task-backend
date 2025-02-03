@@ -1,0 +1,25 @@
+<h2>{{ title }} ({{ issues|length }})</h2>
+
+<table class="table table-bordered table-striped table-hover sonata-ba-list">
+    <thead>
+        <tr class="sonata-ba-list-field-header">
+            <th class="sonata-ba-list-field-header-integer">id</th>
+            <th class="sonata-ba-list-field-header-string">Project</th>
+            <th class="sonata-ba-list-field-header-string">Issue</th>
+            <th class="sonata-ba-list-field-header-string">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for issue in issues %}
+        <tr>
+            <td class="sonata-ba-list-field">{{ issue.id }}</td>
+            <td class="sonata-ba-list-field sonata-ba-list-field-string">{{ issue.project.name }}</td>
+            <td class="sonata-ba-list-field sonata-ba-list-field-string">
+                <a href="/admin/app/issue/{{ issue.id }}/show">{{ issue.name }}</a>
+            </td>
+            <td class="sonata-ba-list-field sonata-ba-list-field-string">{{ issue.status}}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+

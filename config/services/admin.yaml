@@ -9,6 +9,18 @@ services:
     tags:
       - { name: "sonata.block" }
 
+  admin.block.service.deadline:
+    class: App\Block\Service\DeadlineBlock
+    public: true
+    tags:
+      - { name: "sonata.block" }
+
+  admin.block.service.owner:
+    class: App\Block\Service\OwnerBlock
+    public: true
+    tags:
+      - { name: "sonata.block" }
+
   sonata.admin.user.user:
     class: App\Admin\UserAdmin
     tags:

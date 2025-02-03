@@ -30,4 +30,5 @@ admin:
   repository: 'Repository'
   repositories: 'Repositories'
   gitlabId: 'ID Gitlab'
+  deadline: 'Deadline'
 
