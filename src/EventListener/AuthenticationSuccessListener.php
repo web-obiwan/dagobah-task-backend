@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\EventListener;
 
-use Doctrine\ORM\Exception\ORMException;
 use App\Entity\User;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationSuccessEvent;
 
 class AuthenticationSuccessListener
 {
     /**
-     * @throws ORMException
+     * @param AuthenticationSuccessEvent $event
+     * @return void
      */
     public function onAuthenticationSuccessResponse(AuthenticationSuccessEvent $event): void
     {
