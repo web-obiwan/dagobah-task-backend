@@ -10,6 +10,7 @@ use Sonata\AdminBundle\Route\RouteCollectionInterface;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class UserAdmin extends AbstractAdmin
@@ -39,6 +40,10 @@ class UserAdmin extends AbstractAdmin
             ->add('email', EmailType::class, [
                 'label' => 'admin.email',
                 'required' => true,
+            ])
+            ->add('plainPassword', PasswordType::class, [
+                'label' => 'admin.password',
+                'required' => false,
             ])
             ->add('enabled', CheckboxType::class, [
                 'required' => false,
