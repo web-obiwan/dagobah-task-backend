@@ -88,6 +88,12 @@ class IssueAdmin extends AbstractAdmin
                 'required' => false,
             ])
             ->end()
+            ->with('Dates', ['class' => 'col-md-6'])
+            ->add('deadline', null, [
+                'label' => 'admin.deadline',
+                'required' => false,
+            ])
+            ->end()
             ->with('Sprint', ['class' => 'col-md-6'])
             ->add('sprint', null, [
                 'label' => 'admin.sprint',

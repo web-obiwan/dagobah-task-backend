@@ -15,6 +15,7 @@ use ApiPlatform\Metadata\Put;
 use ApiPlatform\Serializer\Filter\GroupFilter;
 use App\Repository\IssueRepository;
 use App\ValueObject\IssueStatus;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -105,7 +106,7 @@ class Issue
     protected ?int $storyPoint;
 
     #[Groups(['issue:read', 'issue:create', 'issue:update'])]
-    #[ORM\Column(length: 2000, nullable: true)]
+    #[ORM\Column(type: 'text', nullable: true)]
     protected ?string $description;
 
     #[Groups(['issue:project', 'issue:create', 'issue:update'])]
@@ -158,6 +159,10 @@ class Issue
     #[Groups(['issue:read', 'issue:update'])]
     #[ORM\Column(nullable:false, options: ['default' => false])]
     protected bool $isArchived = false;
+
+    #[Groups(['issue:read', 'issue:create', 'issue:update'])]
+    #[ORM\Column(type:'date', nullable: true)]
+    private ?DateTime $deadline = null;
 
     public function __construct()
     {
@@ -329,6 +334,16 @@ class Issue
     public function setIsArchived(bool $isArchived): void
     {
         $this->isArchived = $isArchived;
+    }
+
+    public function getDeadline(): ?DateTime
+    {
+        return $this->deadline;
+    }
+
+    public function setDeadline(?DateTime $deadline): void
+    {
+        $this->deadline = $deadline;
     }
 
     public function __toString(): string

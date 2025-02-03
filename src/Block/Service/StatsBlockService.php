@@ -21,9 +21,6 @@ class StatsBlockService extends AbstractBlockService
         parent::__construct($templating);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): string
     {
         return 'Stats Block';
