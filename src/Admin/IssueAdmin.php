@@ -35,6 +35,7 @@ class IssueAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $form): void
     {
         $form
+            ->with('infos', ['class' => 'col-md-6'])
             ->add('name', TextType::class, [
                 'label' => 'admin.name',
                 'required' => true,
@@ -43,16 +44,8 @@ class IssueAdmin extends AbstractAdmin
                 'label' => 'admin.project',
                 'required' => true,
             ])
-            ->add('owner', null, [
-                'label' => 'admin.owner',
-                'required' => true,
-            ])
-            ->add('reviewer', null, [
-                'label' => 'admin.reviewer',
-                'required' => false,
-            ])
-            ->add('reporter', null, [
-                'label' => 'admin.reporter',
+            ->add('repositories', null, [
+                'label' => 'admin.repositories',
                 'required' => false,
             ])
             ->add(
@@ -67,19 +60,43 @@ class IssueAdmin extends AbstractAdmin
                 'label' => 'admin.priority',
                 'required' => true,
             ])
-            ->add('is_archived', CheckboxType::class, [
-                'label' => 'admin.isArchived',
+
+            ->add('labels', null, [
+                'label' => 'admin.labels',
                 'required' => false,
             ])
             ->add('storyPoint', TextType::class, [
                 'label' => 'admin.storyPoint',
                 'required' => false,
             ])
+            ->add('is_archived', CheckboxType::class, [
+                'label' => 'admin.isArchived',
+                'required' => false,
+            ])
+            ->end()
+            ->with('Users', ['class' => 'col-md-6'])
+            ->add('owner', null, [
+                'label' => 'admin.owner',
+                'required' => true,
+            ])
+            ->add('reviewer', null, [
+                'label' => 'admin.reviewer',
+                'required' => false,
+            ])
+            ->add('reporter', null, [
+                'label' => 'admin.reporter',
+                'required' => false,
+            ])
+            ->end()
+            ->with('Description', ['class' => 'col-md-6'])
             ->add('description', TextareaType::class, [
                 'label' => 'admin.description',
                 'required' => false,
+                'attr' => [
+                    'rows' => 10,
+                ]
             ])
-
+            ->end()
         ;
     }
 
@@ -133,16 +150,22 @@ class IssueAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $show): void
     {
         $show
+            ->with('infos', ['class' => 'col-md-6'])
             ->add('id', null, ['label' => 'admin.id'])
+            ->add('createdAt', null, ['label' => 'admin.createdAt'])
+            ->add('name', null, ['label' => 'admin.name'])
             ->add('project', null, ['label' => 'admin.project'])
             ->add('repositories', null, ['label' => 'admin.repositories'])
-            ->add('name', null, ['label' => 'admin.name'])
-            ->add('owner', null, ['label' => 'admin.owner'])
-            ->add('reviewer', null, ['label' => 'admin.reviewer'])
             ->add('status', null, ['label' => 'admin.status'])
             ->add('priority', null, ['label' => 'admin.priority'])
+            ->add('labels', null, ['label' => 'admin.labels'])
+            ->end()
+            ->with('Users', ['class' => 'col-md-6'])
+            ->add('owner', null, ['label' => 'admin.owner'])
+            ->add('reviewer', null, ['label' => 'admin.reviewer'])
+            ->add('reporter', null, ['label' => 'admin.reviewer'])
+            ->end()
             ->add('description', null, ['label' => 'admin.description'])
-            ->add('createdAt', null, ['label' => 'admin.createdAt'])
         ;
     }
 }

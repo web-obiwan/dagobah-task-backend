@@ -16,6 +16,7 @@ admin:
   sort: 'Sort'
   status: 'Status'
   label: 'Label'
+  labels: 'Labels'
   color: 'Color'
   sprint: 'Sprint'
   begunAt: 'Begun At'

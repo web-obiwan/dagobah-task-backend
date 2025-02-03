@@ -110,6 +110,6 @@ class Repository
 
     public function __toString(): string
     {
-        return $this->name;
+        return sprintf('%s / %s',$this->getProject()->getName(), $this->name);
     }
 }
