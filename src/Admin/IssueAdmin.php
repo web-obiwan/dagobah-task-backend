@@ -77,7 +77,7 @@ class IssueAdmin extends AbstractAdmin
             ->with('Users', ['class' => 'col-md-6'])
             ->add('owner', null, [
                 'label' => 'admin.owner',
-                'required' => true,
+                'required' => false,
             ])
             ->add('reviewer', null, [
                 'label' => 'admin.reviewer',
@@ -88,7 +88,12 @@ class IssueAdmin extends AbstractAdmin
                 'required' => false,
             ])
             ->end()
-            ->with('Description', ['class' => 'col-md-6'])
+            ->with('Sprint', ['class' => 'col-md-6'])
+            ->add('sprint', null, [
+                'label' => 'admin.sprint',
+                'required' => false,
+            ])
+            ->end()
             ->add('description', TextareaType::class, [
                 'label' => 'admin.description',
                 'required' => false,
@@ -115,6 +120,10 @@ class IssueAdmin extends AbstractAdmin
                     'multiple' => false,
                 ]
             ])
+            ->add('sprint', null, ['label' => 'admin.sprint'])
+            ->add('owner', null, ['label' => 'admin.owner'])
+            ->add('reviewer', null, ['label' => 'admin.reviewer'])
+            ->add('priority', null, ['label' => 'admin.priority'])
         ;
     }
 
@@ -125,6 +134,7 @@ class IssueAdmin extends AbstractAdmin
     {
         $list
             ->addIdentifier('id', null, ['label' => 'admin.id'])
+            ->add('sprint', null, ['label' => 'admin.sprint'])
             ->add('project', null, ['label' => 'admin.project'])
             ->add('name', null, ['label' => 'admin.name'])
             ->add('owner', null, ['label' => 'admin.owner'])
