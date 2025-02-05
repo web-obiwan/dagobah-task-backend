@@ -55,7 +55,6 @@ class DeadlineBlock extends AbstractBlockService
             [
                 'block' => $blockContext->getBlock(),
                 'settings' => $settings,
-                'title' => 'Deadline',
                 'issues' => $issues,
             ],
             $response
