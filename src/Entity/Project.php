@@ -55,6 +55,7 @@ class Project
      * @var Collection<int, Issue>
      */
     #[ORM\OneToMany(targetEntity: Issue::class, mappedBy: 'project')]
+    #[ORM\OrderBy(["id" => "ASC"])]
     private Collection $issues;
 
 
