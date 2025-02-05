@@ -42,6 +42,9 @@ class UserFixtures extends Fixture
         ],
     ];
 
+    /**
+     * @var array<mixed>
+     */
     private array $refreshTokens = [
         [
             'refresh_token' => 'token',

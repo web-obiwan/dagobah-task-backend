@@ -5,19 +5,17 @@ declare(strict_types=1);
 namespace App\Block\Service;
 
 use App\Entity\Issue;
-use App\ValueObject\IssueStatus;
+use App\Entity\Sprint;
 use Doctrine\ORM\EntityManagerInterface;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\BlockBundle\Block\Service\AbstractBlockService;
-use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
-class OwnerBlock extends AbstractBlockService
+class SprintBlock extends AbstractBlockService
 {
     public function __construct(
         Environment $templating,
-        private readonly Security $security,
         private readonly EntityManagerInterface $em
     ) {
         parent::__construct($templating);
@@ -25,7 +23,7 @@ class OwnerBlock extends AbstractBlockService
 
     public function getName(): string
     {
-        return 'Owner Issue Block';
+        return 'Sprint Block';
     }
 
 
@@ -38,23 +36,26 @@ class OwnerBlock extends AbstractBlockService
         BlockContextInterface $blockContext,
         Response $response = null
     ): Response {
+        $settings = $blockContext->getSettings();
 
         $qb = $this->em->createQueryBuilder();
-        $issues = $qb->select('i')
-            ->from(Issue::class, 'i')
-            ->where('i.owner = :owner')
-            ->andWhere('i.status IN (:statuses)')
-            ->orderBy('i.id', 'ASC')
-            ->setParameter('owner', $this->security->getUser())
-            ->setParameter('statuses', [IssueStatus::BACKLOG, IssueStatus::IN_PROGRESS])
+        $sprints = $qb->select('s.id, s.name, s.begunAt, s.endedAt')
+            ->from(Sprint::class, 's')
+            ->leftJoin('s.issues', 'i')
+            ->addSelect('COUNT(i.id) as nbIssue')
+            ->orderBy('s.id', 'DESC')
+            ->setMaxResults(4)
+            ->groupBy('s.id')
             ->getQuery()
             ->getResult();
 
         return $this->renderResponse(
-            'Admin/Block/owner.html.twig',
+            'Admin/Block/sprint.html.twig',
             [
                 'block' => $blockContext->getBlock(),
-                'issues' => $issues,
+                'settings' => $settings,
+                'title' => 'Deadline',
+                'sprints' => $sprints,
             ],
             $response
         );
