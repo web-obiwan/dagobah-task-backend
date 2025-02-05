@@ -60,7 +60,7 @@ class IssueFixtures extends Fixture implements DependentFixtureInterface
             'name' => 'Feature',
             'owner' => 1,
             'reviewer' => 2,
-            'project' => 1,
+            'project' => 2,
             'repositories' => [],
             'sprint' => 1,
             'status' => IssueStatus::BACKLOG,
