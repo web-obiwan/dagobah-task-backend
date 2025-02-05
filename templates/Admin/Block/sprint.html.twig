@@ -1,0 +1,13 @@
+{% for sprint in sprints %}
+    <div class="cms-block cms-block-element col-md-3">
+        <div class="small-box bg-gray-active">
+            <div class="inner">
+                <h3><a href="/admin/app/issue/list?filter%5Bsprint%5D%5Bvalue%5D={{ sprint.id }}">{{ sprint.nbIssue }} {{ 'admin.issues'|trans }}</a></h3>
+                <p>{{ sprint.name }} [{{ sprint.begunAt|date("m/d/Y") }} => {{ sprint.endedAt|date("m/d/Y") }}]</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-info"></i>
+            </div>
+        </div>
+    </div>
+{% endfor %}

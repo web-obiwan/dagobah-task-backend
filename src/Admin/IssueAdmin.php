@@ -126,6 +126,7 @@ class IssueAdmin extends AbstractAdmin
                     'multiple' => false,
                 ]
             ])
+            ->add('project', null, ['label' => 'admin.project'])
             ->add('sprint', null, ['label' => 'admin.sprint'])
             ->add('owner', null, ['label' => 'admin.owner'])
             ->add('reviewer', null, ['label' => 'admin.reviewer'])
@@ -180,6 +181,12 @@ class IssueAdmin extends AbstractAdmin
             ->add('owner', null, ['label' => 'admin.owner'])
             ->add('reviewer', null, ['label' => 'admin.reviewer'])
             ->add('reporter', null, ['label' => 'admin.reviewer'])
+            ->end()
+            ->with('Dates', ['class' => 'col-md-6'])
+            ->add('deadline', null, ['label' => 'admin.deadline'])
+            ->end()
+            ->with('Sprint', ['class' => 'col-md-6'])
+            ->add('sprint', null, ['label' => 'admin.sprint'])
             ->end()
             ->add('description', null, ['label' => 'admin.description'])
         ;

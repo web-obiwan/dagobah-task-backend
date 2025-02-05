@@ -21,6 +21,13 @@ services:
     tags:
       - { name: "sonata.block" }
 
+  admin.block.service.sprint:
+    class: App\Block\Service\SprintBlock
+    public: true
+    tags:
+      - { name: "sonata.block" }
+
+
   sonata.admin.user.user:
     class: App\Admin\UserAdmin
     tags:

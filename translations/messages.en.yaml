@@ -22,6 +22,7 @@ admin:
   begunAt: 'Begun At'
   endedAt: 'Ended At'
   issue: 'Issue'
+  issues: 'Issues'
   owner: 'Owner'
   reviewer: 'Reviewer'
   reporter: 'Reporter'
@@ -31,4 +32,6 @@ admin:
   repositories: 'Repositories'
   gitlabId: 'ID Gitlab'
   deadline: 'Deadline'
+  last_sprints: 'Last sprints'
+  my_issues: 'My issues'
 

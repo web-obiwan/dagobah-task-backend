@@ -45,6 +45,33 @@ class IssueRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
+    /**
+     * @return mixed
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
+    public function countStatusPlanned(): mixed
+    {
+        $qb = $this->getCountQueryBuilder();
+        $this->whereStatus($qb, IssueStatus::PLANNED);
+        return $qb->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    /**
+     * @return mixed
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
+    public function countStatusCompleted(): mixed
+    {
+        $qb = $this->getCountQueryBuilder();
+        $this->whereStatus($qb, IssueStatus::COMPLETED);
+        return $qb->getQuery()
+            ->getSingleScalarResult();
+    }
+
+
     private function getCountQueryBuilder(): QueryBuilder
     {
         return $this->createQueryBuilder('i')

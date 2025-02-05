@@ -1,6 +1,6 @@
 {% extends '@SonataAdmin/standard_layout.html.twig' %}
 {% block content %}
-    <h2>Issues</h2>
+    <h2>{{ 'admin.issues'|trans }}</h2>
     <div class="row">
         {{ sonata_block_render({ 'type': 'admin.block.service.stats' }, {
             'entity' : 'App\\Entity\\Issue',
@@ -12,12 +12,33 @@
         }) }}
         {{ sonata_block_render({ 'type': 'admin.block.service.stats' }, {
             'entity' : 'App\\Entity\\Issue',
+            'repository_method' : 'countStatusPlanned',
+            'title' : 'PLANNED',
+            'url' : '/admin/app/issue/list?filter%5Bstatus%5D%5Bvalue%5D=PLANNED',
+            'css_class' : 'bg-gray-active',
+            'icon' : 'fa fa-calendar-plus-o'
+        }) }}
+        {{ sonata_block_render({ 'type': 'admin.block.service.stats' }, {
+            'entity' : 'App\\Entity\\Issue',
             'repository_method' : 'countStatusInProgress',
             'title' : 'IN PROGRESS',
             'url' : '/admin/app/issue/list?filter%5Bstatus%5D%5Bvalue%5D=IN_PROGRESS',
             'css_class' : 'bg-gray-active',
             'icon' : 'fa fa-wrench'
         }) }}
+        {{ sonata_block_render({ 'type': 'admin.block.service.stats' }, {
+            'entity' : 'App\\Entity\\Issue',
+            'repository_method' : 'countStatusCompleted',
+            'title' : 'COMPLETED',
+            'url' : '/admin/app/issue/list?filter%5Bstatus%5D%5Bvalue%5D=COMPLETED',
+            'css_class' : 'bg-gray-active',
+            'icon' : 'fa fa-check'
+        }) }}
+    </div>
+
+    <h2>{{ 'admin.last_sprints'|trans }}</h2>
+    <div class="row">
+        {{ sonata_block_render({ 'type': 'admin.block.service.sprint' }) }}
     </div>
 
     <div class="col-md-6">
