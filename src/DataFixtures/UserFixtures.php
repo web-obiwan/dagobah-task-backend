@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
+use App\Entity\RefreshToken;
+use DateMalformedStringException;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -40,6 +42,14 @@ class UserFixtures extends Fixture
         ],
     ];
 
+    private array $refreshTokens = [
+        [
+            'refresh_token' => 'token',
+            'username' => 'obiwan.kenobi@local.fr',
+            'valid' => '2026-12-31',
+        ],
+    ];
+
     /**
      * @param ObjectManager $manager
      * @return void
@@ -52,10 +62,14 @@ class UserFixtures extends Fixture
         }
     }
 
+    /**
+     * @throws DateMalformedStringException
+     */
     public function load(ObjectManager $manager): void
     {
         $this->updateGeneratorType($manager);
         $this->loadUsers($manager);
+        $this->loadRefreshTokens($manager);
         $manager->flush();
     }
 
@@ -75,6 +89,22 @@ class UserFixtures extends Fixture
             $user->setRoles($row['roles']);
             $manager->persist($user);
             $this->addReference('user' . $user->getId(), $user);
+        }
+    }
+
+    /**
+     * @param ObjectManager $manager
+     * @return void
+     * @throws DateMalformedStringException
+     */
+    private function loadRefreshTokens(ObjectManager $manager): void
+    {
+        foreach ($this->refreshTokens as $row) {
+            $refreshToken = new RefreshToken();
+            $refreshToken->setRefreshToken($row['refresh_token']);
+            $refreshToken->setUsername($row['username']);
+            $refreshToken->setValid(new \DateTime($row['valid']));
+            $manager->persist($refreshToken);
         }
     }
 }
