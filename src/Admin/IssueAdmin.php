@@ -19,14 +19,6 @@ class IssueAdmin extends AbstractAdmin
 {
     protected $baseRouteName = 'sonata_admin_issue';
 
-    /**
-     * @param RouteCollectionInterface $collection
-     */
-    protected function configureRoutes(RouteCollectionInterface $collection): void
-    {
-        $collection
-            ->remove('delete');
-    }
 
     /**
      * @param FormMapper $form
