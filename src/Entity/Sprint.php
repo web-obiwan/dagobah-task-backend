@@ -119,6 +119,11 @@ class Sprint
 
     public function __toString(): string
     {
-        return $this->name;
+        return sprintf(
+            '%s [%s => %s]',
+            $this->name,
+            $this->begunAt->format('Y-m-d'),
+            $this->endedAt->format('Y-m-d')
+        );
     }
 }

@@ -87,10 +87,21 @@ class IssueAdmin extends AbstractAdmin
             ])
             ->end()
             ->with('Sprint', ['class' => 'col-md-6'])
-            ->add('sprint', null, [
-                'label' => 'admin.sprint',
-                'required' => false,
-            ])
+            ->add(
+                'sprint',
+                null,
+                [
+                    'label' => 'admin.sprint',
+                    'required' => false,
+                    'expanded' => false,
+                    'query_builder' =>
+                        function ($er) {
+                            $qb = $er->createQueryBuilder('s');
+                            $qb->orderBy('s.id', 'DESC');
+                            return $qb;
+                        }
+                ]
+            )
             ->end()
             ->add('description', TextareaType::class, [
                 'label' => 'admin.description',
