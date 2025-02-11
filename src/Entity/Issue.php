@@ -42,14 +42,20 @@ use Symfony\Component\Serializer\Annotation\Groups;
     normalizationContext: ['groups' => [
         'issue:read',
         'issue:project',
+        'project:read',
         'issue:sprint',
+        'sprint:read',
         'issue:reporter',
+        'user:read',
         'issue:owner',
         'issue:reviewer',
         'issue:status',
         'issue:priority',
+        'priority:read',
         'issue:labels',
-        'label:read']
+        'label:read',
+        'issue:repository',
+        'repository:read']
     ]
 )]
 #[ApiFilter(
@@ -117,6 +123,7 @@ class Issue
     /**
      * @var Collection<int, Repository>
      */
+    #[Groups(['issue:repository', 'issue:create', 'issue:update'])]
     #[ORM\ManyToMany(targetEntity: Repository::class)]
     private Collection $repositories;
 

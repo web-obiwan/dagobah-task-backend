@@ -20,17 +20,26 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new GetCollection(),
         new Get(),
         new Post(
-            normalizationContext: ['groups' => ['repository:read']],
+            normalizationContext: ['groups' => [
+                'repository:read',
+                'repository:project',
+                'project:read'
+            ]],
             denormalizationContext: ['groups' => ['repository:create']],
         ),
         new Put(
-            normalizationContext: ['groups' => ['repository:read']],
+            normalizationContext: ['groups' => [
+                'repository:read',
+                'repository:project',
+                'project:read'
+            ]],
             denormalizationContext: ['groups' => ['repository:update']]
         ),
     ],
     normalizationContext: ['groups' => [
         'repository:read',
         'repository:project',
+        'project:read'
     ]]
 )]
 class Repository
@@ -45,11 +54,11 @@ class Repository
     #[ORM\Column(length: 100, nullable: false)]
     protected string $name = '';
 
-    #[Groups(['issue:read', 'issue:create', 'issue:update'])]
+    #[Groups(['repository:read', 'repository:create', 'repository:update'])]
     #[ORM\Column(length: 2000, nullable: true)]
     protected ?string $description;
 
-    #[Groups(['issue:project', 'issue:create'])]
+    #[Groups(['repository:project', 'repository:create'])]
     #[ORM\ManyToOne(targetEntity: Project::class, fetch: 'EAGER', inversedBy: 'issues')]
     #[ORM\JoinColumn(nullable:false, onDelete:'RESTRICT')]
     protected Project $project;
