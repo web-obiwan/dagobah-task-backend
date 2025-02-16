@@ -33,4 +33,5 @@ admin:
   deadline: 'Deadline'
   last_sprints: 'Last sprints'
   my_issues: 'My issues'
+  reference: 'Reference'
 
