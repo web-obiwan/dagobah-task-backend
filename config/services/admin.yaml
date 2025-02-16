@@ -28,7 +28,7 @@ services:
       - { name: "sonata.block" }
 
 
-  sonata.admin.user.user:
+  sonata.admin.user:
     class: App\Admin\UserAdmin
     tags:
       - name: sonata.admin

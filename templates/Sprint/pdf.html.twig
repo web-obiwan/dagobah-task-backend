@@ -1,0 +1,57 @@
+<html lang="en">
+<style>
+    h1 {
+        text-align:center;
+    }
+    table {
+        width: 100%;
+        border-collapse: revert;
+        border-spacing: 0;
+    }
+    table tr th {
+        text-align: left;
+    }
+    td,th {
+        padding: 8px;
+        border: 1px solid Black;
+    }
+    table thead {
+        background-color: #eb984e;
+    }
+    tbody tr:nth-child(odd) {
+        background-color: #e5e7e9;
+        #color: #fff;
+    }
+</style>
+<body>
+
+<h1>{{ sprint.name }} - {{ sprint.begunAt|date("m/d/Y")  }} => {{ sprint.endedAt|date("m/d/Y")  }}</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>{{ 'admin.project'|trans }} </th>
+            <th>{{ 'admin.reference'|trans }} </th>
+            <th>{{ 'admin.name'|trans }} </th>
+            <th>{{ 'admin.owner'|trans }} </th>
+            <th>{{ 'admin.storyPoint'|trans }} </th>
+            <th>{{ 'admin.status'|trans }} <tr>
+        </tr>
+    </thead>
+    <tbody>
+    {% for issue in sprint.issues %}
+        <tr>
+            <td>{{ issue.project.name }}</td>
+            <td>{{ issue.reference }}</td>
+            <td>{{ issue.name }}</td>
+            <td>{{ issue.owner.username }}</td>
+            <td>{{ issue.storyPoint }}</td>
+            <td>{{ issue.status }}</td>
+    </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+
+</body>
+</html>
