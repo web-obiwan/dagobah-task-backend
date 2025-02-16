@@ -61,10 +61,6 @@ class IssueAdmin extends AbstractAdmin
                 'label' => 'admin.storyPoint',
                 'required' => false,
             ])
-            ->add('is_archived', CheckboxType::class, [
-                'label' => 'admin.isArchived',
-                'required' => false,
-            ])
             ->end()
             ->with('Users', ['class' => 'col-md-6'])
             ->add('owner', null, [
