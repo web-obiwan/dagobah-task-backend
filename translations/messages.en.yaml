@@ -26,7 +26,6 @@ admin:
   owner: 'Owner'
   reviewer: 'Reviewer'
   reporter: 'Reporter'
-  isArchived: 'Is Archived ?'
   storyPoint: 'Story Point'
   repository: 'Repository'
   repositories: 'Repositories'

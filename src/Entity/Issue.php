@@ -163,10 +163,6 @@ class Issue
     #[ORM\ManyToMany(targetEntity: Label::class)]
     private Collection $labels;
 
-    #[Groups(['issue:read', 'issue:update'])]
-    #[ORM\Column(nullable:false, options: ['default' => false])]
-    protected bool $isArchived = false;
-
     #[Groups(['issue:read', 'issue:create', 'issue:update'])]
     #[ORM\Column(type:'date', nullable: true)]
     private ?DateTime $deadline = null;
@@ -326,21 +322,6 @@ class Issue
     public function getLabels(): Collection
     {
         return $this->labels;
-    }
-
-    public function isArchived(): bool
-    {
-        return $this->isArchived;
-    }
-
-    public function getIsArchived(): bool
-    {
-        return $this->isArchived;
-    }
-
-    public function setIsArchived(bool $isArchived): void
-    {
-        $this->isArchived = $isArchived;
     }
 
     public function getDeadline(): ?DateTime
