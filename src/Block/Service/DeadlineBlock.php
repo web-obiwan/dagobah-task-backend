@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Block\Service;
 
 use App\Entity\Issue;
+use App\ValueObject\IssueStatus;
 use Doctrine\ORM\EntityManagerInterface;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\BlockBundle\Block\Service\AbstractBlockService;
@@ -45,8 +46,10 @@ class DeadlineBlock extends AbstractBlockService
             ->from(Issue::class, 'i')
             ->where($qb->expr()->isNotNull('i.deadline'))
             ->andWhere($qb->expr()->lt('i.deadline', ':limit'))
+            ->andWhere('i.status != :status')
             ->orderBy('i.deadline', 'ASC')
             ->setParameter('limit', $alert->format('Y-m-d'))
+            ->setParameter('status', IssueStatus::COMPLETED)
             ->getQuery()
             ->getResult();
 
