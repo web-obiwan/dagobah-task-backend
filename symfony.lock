@@ -119,6 +119,9 @@
             "config/packages/lexik_jwt_authentication.yaml"
         ]
     },
+    "magicbart/external-reference-bundle": {
+        "version": "dev-dev"
+    },
     "nelmio/cors-bundle": {
         "version": "2.5",
         "recipe": {
