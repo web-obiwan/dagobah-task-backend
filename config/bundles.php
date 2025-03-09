@@ -28,4 +28,5 @@ return [
     Gesdinet\JWTRefreshTokenBundle\GesdinetJWTRefreshTokenBundle::class => ['all' => true],
     Twig\Extra\TwigExtraBundle\TwigExtraBundle::class => ['all' => true],
     DH\AuditorBundle\DHAuditorBundle::class => ['all' => true],
+    Magicbart\ExternalReferenceBundle\MagicbartExternalReferenceBundle::class => ['all' => true],
 ];

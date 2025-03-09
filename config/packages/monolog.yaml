@@ -9,7 +9,7 @@ when@dev:
                 type: stream
                 path: "%kernel.logs_dir%/%kernel.environment%.log"
                 level: debug
-                channels: ["!event", "!doctrine", "!deprecation"]]
+                channels: ["!event", "!doctrine", "!deprecation"]
                 max_files: 5
             console:
                 type: console
