@@ -13,5 +13,3 @@ parameters:
 
         #doctrine
         - '#Call to an undefined method Doctrine\\Persistence\\Mapping\\ClassMetadata<object>::setIdGeneratorType\(\)#'
-        #Guzzle
-        - '#Call to an undefined method GuzzleHttp\\ClientInterface::.*\(\).#'

@@ -29,4 +29,5 @@ return [
     Twig\Extra\TwigExtraBundle\TwigExtraBundle::class => ['all' => true],
     DH\AuditorBundle\DHAuditorBundle::class => ['all' => true],
     Magicbart\ExternalReferenceBundle\MagicbartExternalReferenceBundle::class => ['all' => true],
+    Zeichen32\GitLabApiBundle\Zeichen32GitLabApiBundle::class => ['all' => true],
 ];

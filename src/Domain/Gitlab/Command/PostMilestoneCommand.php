@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Domain\Gitlab\Command;
 
-use App\Domain\Gitlab\Client\GitlabClient;
 use App\Domain\Gitlab\Handler\CreateMiletoneHandler;
 use App\Entity\Project;
 use App\Entity\Sprint;
 use Doctrine\ORM\EntityManagerInterface;
+use Gitlab\Client;
+use Magicbart\ExternalReferenceBundle\Exception\NotFoundExternalReferenceException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -22,7 +23,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class PostMilestoneCommand extends Command
 {
     public function __construct(
-        protected readonly GitlabClient $client,
+        protected readonly Client $client,
         private readonly CreateMiletoneHandler $handler,
         private readonly EntityManagerInterface $em,
     ) {
@@ -50,6 +51,7 @@ class PostMilestoneCommand extends Command
      * @param InputInterface $input
      * @param OutputInterface $output
      * @return int
+     * @throws NotFoundExternalReferenceException
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {

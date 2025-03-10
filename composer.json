@@ -20,7 +20,7 @@
         "guzzlehttp/guzzle": "^7.9",
         "league/flysystem-bundle": "^3.3",
         "lexik/jwt-authentication-bundle": "^3.1",
-        "magicbart/external-reference-bundle" : "dev-dev",
+        "magicbart/external-reference-bundle": "dev-dev",
         "nelmio/cors-bundle": "^2.5",
         "phpdocumentor/reflection-docblock": "^5.6",
         "phpstan/phpdoc-parser": "^2.0",
@@ -43,7 +43,8 @@
         "symfony/translation": "7.2.*",
         "symfony/twig-bundle": "7.2.*",
         "symfony/validator": "7.2.*",
-        "symfony/yaml": "7.2.*"
+        "symfony/yaml": "7.2.*",
+        "zeichen32/gitlabapibundle": "*"
     },
     "require-dev": {
         "dama/doctrine-test-bundle": "^8.2",

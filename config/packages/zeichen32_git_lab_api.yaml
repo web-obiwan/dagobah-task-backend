@@ -1,0 +1,6 @@
+zeichen32_git_lab_api:
+  clients:
+    firstclient:
+      token: '%env(resolve:GITLAB_PRIVATE_TOKEN)%'
+      url: '%env(resolve:GITLAB_BASE_URL)%'
+      auth_method: http_token
