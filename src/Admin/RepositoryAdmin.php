@@ -25,6 +25,7 @@ class RepositoryAdmin extends AbstractAdmin
     protected function configureRoutes(RouteCollectionInterface $collection): void
     {
         $collection
+            ->add('create-milestone', $this->getRouterIdParameter() . '/create-milestone')
             ->remove('delete');
     }
 
@@ -80,6 +81,9 @@ class RepositoryAdmin extends AbstractAdmin
                 'actions' => [
                     'show' => [],
                     'edit' => [],
+                    'create_milestone' => [
+                        'template' => 'Admin/Entity/Repository/link.create.milestone.html.twig'
+                    ],
                 ]
             ])
         ;

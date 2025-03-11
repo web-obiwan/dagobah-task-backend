@@ -52,6 +52,7 @@ services:
     tags:
       - name: sonata.admin
         model_class: 'App\Entity\Repository'
+        controller: App\Controller\Admin\RepositoryAdminController
         manager_type: orm
         group: "group.projects"
         label: "admin.repository"

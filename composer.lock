@@ -4181,17 +4181,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/magicbart/external-reference-bundle.git",
-                "reference": "3f66e11bd2a282b4bcac76c8a0a0480e31eda57f"
+                "reference": "6105448ee0a968135800e99a7c6c580ac6b1ebad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/magicbart/external-reference-bundle/zipball/3f66e11bd2a282b4bcac76c8a0a0480e31eda57f",
-                "reference": "3f66e11bd2a282b4bcac76c8a0a0480e31eda57f",
+                "url": "https://api.github.com/repos/magicbart/external-reference-bundle/zipball/6105448ee0a968135800e99a7c6c580ac6b1ebad",
+                "reference": "6105448ee0a968135800e99a7c6c580ac6b1ebad",
                 "shasum": ""
             },
             "require": {
                 "doctrine/doctrine-bundle": "^2.13",
                 "doctrine/orm": "^3.3",
+                "gedmo/doctrine-extensions": "^3.19",
                 "php": "^8.3",
                 "symfony/config": "^6.4 | ^7.0",
                 "symfony/console": "^6.4 | ^7.0",
@@ -4240,7 +4241,7 @@
                 "issues": "https://github.com/magicbart/external-reference-bundle/issues",
                 "source": "https://github.com/magicbart/external-reference-bundle/tree/dev"
             },
-            "time": "2025-03-09T15:52:41+00:00"
+            "time": "2025-03-11T18:58:18+00:00"
         },
         {
             "name": "masterminds/html5",

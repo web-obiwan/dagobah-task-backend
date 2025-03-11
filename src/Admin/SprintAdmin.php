@@ -83,6 +83,7 @@ class SprintAdmin extends AbstractAdmin
     {
         $show
             ->add('id', null, ['label' => 'admin.id'])
+            ->add('name', null, ['label' => 'admin.name'])
             ->add('begunAt', null, ['label' => 'admin.begunAt'])
             ->add('endedAt', null, ['label' => 'admin.endedAt'])
         ;
