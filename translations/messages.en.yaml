@@ -34,4 +34,8 @@ admin:
   last_sprints: 'Last sprints'
   my_issues: 'My issues'
   reference: 'Reference'
+  duration: 'Duration'
+  progress: 'Progress'
+  childs: 'Childs'
+  parent: 'Parent'
 
