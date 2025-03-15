@@ -58,10 +58,18 @@ class Project
     #[ORM\OrderBy(["id" => "ASC"])]
     private Collection $issues;
 
+    /**
+     * @var Collection<int, Gantt>
+     */
+    #[ORM\OneToMany(targetEntity: Gantt::class, mappedBy: 'project')]
+    #[ORM\OrderBy(["id" => "ASC"])]
+    private Collection $gantts;
+
 
     public function __construct()
     {
         $this->issues = new ArrayCollection();
+        $this->gantts = new ArrayCollection();
     }
 
     public function getId(): ?int

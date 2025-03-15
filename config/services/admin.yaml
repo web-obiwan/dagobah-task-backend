@@ -92,3 +92,12 @@ services:
         manager_type: orm
         group: "group.issues"
         label: "admin.issue"
+
+  sonata.admin.gantt:
+    class: App\Admin\GanttAdmin
+    tags:
+      - name: sonata.admin
+        model_class: 'App\Entity\Gantt'
+        manager_type: orm
+        group: "group.gantt"
+        label: "admin.gantt"
